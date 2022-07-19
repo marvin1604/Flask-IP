@@ -1,7 +1,15 @@
 html * {
     font-family: sans-serif;
+    color: white;
+    background-color: #1a1618;
 }
 
 img {
-    max-width: 500px;
+    max-width: 30px;
 }
+
+ul {
+    text-align: star;
+    list-style: none;
+}
+

@@ -2,32 +2,51 @@
 {% import "macros.html" as macros %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for("static", filename ="css/main.css")}} ">
+{% endblock  %}
+
 {% block title %} 
     {{ super() }}
     Bienvenido 
 {% endblock %}
 
 {% block content %}
-{% if user_ip %}
-    <h1>Hello World Platzi 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}}</h1>
-{% else %}
-    <a href="{{  url_for("index") }}"> Ir a Inicio </a>
-{% endif %}
 
-<div class="container">
-    <!-- <form action="{{ url_for("hello")}}" method=" "POST">
-        {{ login_form.username}}
-        {{ login_form.password.label}}
-    </form> -->
-    {{ wtf.quick_form(login_form) }}
-    
-</div>
+    {% if user_ip %}
+        <div class="container" style="text-align: center">
+            <div>
+                <img style= "max-width: 50%; align-content: center" 
+                src="{{ url_for('static', filename='images/icono.jpg') }}">
+            </div>
+            <h1 class="text-center">Welcome World Platzi 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
+            <h2 class="text-center">El mejor lugar para aprender en Linea 🌌</h2>
+            
+            </br>
+            </br>
+            
+            <div class="container" style="align-content: center">
+                <!-- <form action="{{ url_for("hello")}}" method=" "POST">
+                    {{ login_form.username}}
+                    {{ login_form.password.label}}
+                </form> -->
+                {{ wtf.quick_form(login_form, button_map={'submit': 'btn btn-success'}) }}
+            </div>
+            </br>
 
-<ul>
-    {% for todo in todos %}
-        {{macros.render_todo(todo)}}
-    {% endfor %}
-</ul>
+            <div class="container col-lg-4 col-md-4 col-sm-6">
+                <ul class="checklist">
+                    {% for todo in todos %}
+                        {{macros.render_todo(todo)}}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+    {% else %}
+        <a href="{{  url_for("index") }}"> Ir a Inicio </a>
+    {% endif %}
 
 {% endblock %}
 
