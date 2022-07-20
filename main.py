@@ -1,28 +1,18 @@
-from flask import Flask
 from flask import request
 from flask import make_response
 from flask import redirect
 from flask import render_template
 from flask import session, url_for,flash
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
+
 import unittest
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
+from app import create_app
+from app.forms import LoginForm
 
-#creamos una llave secreta y no guardaremos la ip en cookie sino en sesion
-app.config["SECRET_KEY"] = "SUPER SECRETO"
+app = create_app()
 
 todos = ["Completar curso de Ingles", "Completar curso de Flask", "Completar curso de Habilidades Blandas "]
 
-#se crea la clase para usar Flask_wtf
-class LoginForm(FlaskForm):
-    username = StringField("Nombre de usuario", validators= [DataRequired()])
-    password = PasswordField("Password", validators= [DataRequired()])
-    submit =SubmitField("Enviar")
 
 @app.cli.command()
 def test():
