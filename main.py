@@ -4,7 +4,7 @@ from flask import request
 from flask import make_response
 from flask import redirect
 from flask import render_template
-from flask import session
+from flask import session, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, SubmitField
@@ -16,11 +16,11 @@ bootstrap = Bootstrap(app)
 #creamos una llave secreta y no guardaremos la ip en cookie sino en sesion
 app.config["SECRET_KEY"] = "SUPER SECRETO"
 
-todos = ["Comprar cafe", "enviar solicitud de compra", "entregar producto"]
+todos = ["Completar curso de Ingles", "Completar curso de Flask", "Completar curso de Habilidades Blandas "]
 
 #se crea la clase para usar Flask_wtf
 class LoginForm(FlaskForm):
-    usarnmae = StringField("Nombre de usuario", validators= [DataRequired()])
+    username = StringField("Nombre de usuario", validators= [DataRequired()])
     password = PasswordField("Password", validators= [DataRequired()])
     submit =SubmitField("Enviar")
 
@@ -40,15 +40,24 @@ def index():
 
     return response
 
-@app.route("/hello")
+@app.route("/hello", methods= ["GET","POST"])
 def hello():
     user_ip = session.get("user_ip")
     login_form = LoginForm()
+    username = session.get('username')
     
     context= {
         "user_ip" : user_ip,
         "todos"   : todos,
-        "login_form" : login_form
+        "login_form" : login_form,
+        "username" : username
     }
+
+    # se encarga de validar la forma enviada, para redireccionar a otra pagina
+    if login_form.validate_on_submit():
+        username = login_form.username.data
+        session['username'] = username
+        return redirect( url_for("index"))
+        
     return render_template("hello.html", **context)
 

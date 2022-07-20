@@ -2,10 +2,10 @@
 {% import "macros.html" as macros %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block head %}
+<!-- {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for("static", filename ="css/main.css")}} ">
-{% endblock  %}
+    
+{% endblock  %} -->
 
 {% block title %} 
     {{ super() }}
@@ -13,15 +13,17 @@
 {% endblock %}
 
 {% block content %}
-
+    {% if username %}
+        <h1>Bienvenido, {{ username | capitalize }}</h1>
+    {% endif %}
     {% if user_ip %}
         <div class="container" style="text-align: center">
             <div>
                 <img style= "max-width: 50%; align-content: center" 
                 src="{{ url_for('static', filename='images/icono.jpg') }}">
             </div>
-            <h1 class="text-center">Welcome World Platzi 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
-            <h2 class="text-center">El mejor lugar para aprender en Linea 🌌</h2>
+            <h2 class="text-center">Welcome To Platzi 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
+            <h3 class="text-center">El mejor lugar para aprender en Linea 🌌</h2>
             
             </br>
             </br>

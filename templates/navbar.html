@@ -20,16 +20,22 @@
             </button>
             <a class="navbar-brand" href="{{ url_for('index') }}" >
                     <img src="{{ url_for('static', filename='images/platzi.jpg') }}"
-                         style="max-width: 80px"
+                         style="max-width: 80px; align-content: center;"
                          alt="Platzi logo">
             </a>
+                   
         </div>
 
-        <div class="navbar-collapse collapse">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('index') }}">Inicio<span class="sr-only">(current)</span></a>
-                <li><a href="https://platzi.com" target="_blank">Platzi</a>
+                <li><a class="nav-item nav-link active" href="{{ url_for('index') }}">Inicio<span class="sr-only">(current)</span></a>
+                <li><a class="nav-item nav-link" href="https://platzi.com" target="_blank">Platzi</a>
             </ul>
         </div>
-    </div>
+     </div>
 </div>
+
+
+
+
+
