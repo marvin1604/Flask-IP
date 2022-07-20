@@ -1,14 +1,14 @@
-from ensurepip import bootstrap
 from flask import Flask
 from flask import request
 from flask import make_response
 from flask import redirect
 from flask import render_template
-from flask import session, url_for
+from flask import session, url_for,flash
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
+import unittest
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -23,6 +23,12 @@ class LoginForm(FlaskForm):
     username = StringField("Nombre de usuario", validators= [DataRequired()])
     password = PasswordField("Password", validators= [DataRequired()])
     submit =SubmitField("Enviar")
+
+@app.cli.command()
+def test():
+    test = unittest.TestLoader().discover("tests")
+    unittest.TextTestRunner().run(test)
+
 
 @app.errorhandler(404)
 def not_found(error):
@@ -57,7 +63,11 @@ def hello():
     if login_form.validate_on_submit():
         username = login_form.username.data
         session['username'] = username
+        
+        flash("Nombre de usuario registrado con exito!")
+
         return redirect( url_for("index"))
+
         
     return render_template("hello.html", **context)
 
