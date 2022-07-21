@@ -14,31 +14,20 @@
 
 {% block content %}
     {% if username %}
-        <h1>Bienvenido, {{ username | capitalize }}</h1>
+        <h1 style="text-align: center">Bienvenido, {{ username | capitalize }}</h1>
     {% endif %}
     {% if user_ip %}
-        <div class="container" style="text-align: center">
+        <div class="container" style="text-align: left">
+            <h2 class="text-right">Welcome To Instragram 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
+            <h3 class="text-right">Captura tus fotos, captura el mundo 🌌</h2>
             <div>
-                <img style= "max-width: 50%; align-content: center" 
-                src="{{ url_for('static', filename='images/icono.jpg') }}">
+                <img style= "max-width: 30%; align-content: left" 
+                src="{{ url_for('static', filename='images/logo-inst.png') }}">
             </div>
-            <h2 class="text-center">Welcome To Platzi 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
-            <h3 class="text-center">El mejor lugar para aprender en Linea 🌌</h2>
             
-            </br>
-            </br>
-            
-            <div class="container" style="align-content: center">
-                <!-- <form action="{{ url_for("hello")}}" method=" "POST">
-                    {{ login_form.username}}
-                    {{ login_form.password.label}}
-                </form> -->
-                {{ wtf.quick_form(login_form, button_map={'submit': 'btn btn-success'}) }}
-            </div>
-            </br>
-
-            <div class="container col-lg-4 col-md-4 col-sm-6">
-                <ul class="checklist">
+                       
+            <div class="container">
+                <ul class="checklist" style="text-align: right">
                     {% for todo in todos %}
                         {{macros.render_todo(todo)}}
                     {% endfor %}
