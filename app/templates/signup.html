@@ -2,21 +2,19 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %} 
     {{ super() }}
-    Login
+    Signup
 {% endblock %}
 
 {% block content %}
-    <!-- {% if username %}
-        <h1>Bienvenido, {{ username | capitalize }}</h1>
-    {% endif %} -->
     <div class="container" style="text-align: star">
         <div>
             <img style= "max-width: 50%; align-content: left" 
             src="{{ url_for('static', filename='images/instagram.png') }}">
         </div>
     </div>
+    <h1 style="text-align: left">Registra un cuenta</h1>
     <div class="container col-lg-4 col-md-4 col-sm-6">
-        <ul class="checklist"></ul>{{ wtf.quick_form(login_form)}}
+        <ul class="checklist"></ul>{{ wtf.quick_form(signup_form)}}
     </div>
     <div class="container" style="text-align: center">
         <div>
