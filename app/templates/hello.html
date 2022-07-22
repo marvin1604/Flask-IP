@@ -17,14 +17,19 @@
         <h1 style="text-align: center">Bienvenido, {{ username | capitalize }}</h1>
     {% endif %}
     {% if user_ip %}
-        <div class="container" style="text-align: left">
+        <div class="container" style="text-align: center">
+            <div>
+                <img style= "max-width: 100%; align-content: center" 
+                src="{{ url_for('static', filename='images/instagram-horizontal.png') }}">
+            </div>
             <h2 class="text-right">Welcome To Instragram 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
             <h3 class="text-right">Captura tus fotos, captura el mundo 🌌</h2>
-            <div>
-                <img style= "max-width: 30%; align-content: left" 
-                src="{{ url_for('static', filename='images/logo-inst.png') }}">
-            </div>
             
+            
+            <div class="container" style="text-align: left">
+                <h2>Crea una nueva tarea</h2>
+                {{ wtf.quick_form(todo_form) }}            
+            </div>
                        
             <div class="container">
                 <ul class="checklist" style="text-align: center">
@@ -33,6 +38,9 @@
                         {{macros.render_todo(todo)}}
                     {% endfor %}
                 </ul>
+                </Br>
+                </Br>
+                </Br>
             </div>
         </div>
         
