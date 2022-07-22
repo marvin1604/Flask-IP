@@ -3,15 +3,17 @@ from flask import make_response
 from flask import redirect
 from flask import render_template
 from flask import session, url_for,flash
+from flask_login import login_required
 
 import unittest
 
 from app import create_app
 from app.forms import LoginForm
+from app.firestore_service import get_users, get_todos
 
 app = create_app()
 
-todos = ["Completar curso de Ingles", "Completar curso de Flask", "Completar curso de Habilidades Blandas "]
+# todos = ["Completar curso de Ingles", "Completar curso de Flask", "Completar curso de Habilidades Blandas "]
 
 
 @app.cli.command()
@@ -37,15 +39,17 @@ def index():
     return response
 
 @app.route("/hello", methods= ["GET"])
+@login_required
 def hello():
     user_ip = session.get("user_ip")
     username = session.get('username')
     
     context= {
         "user_ip" : user_ip,
-        "todos"   : todos,
+        "todos"   : get_todos(user_id=username),
         "username" : username
     }
+    
      
     return render_template("hello.html", **context)
 

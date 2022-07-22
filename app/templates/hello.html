@@ -27,7 +27,8 @@
             
                        
             <div class="container">
-                <ul class="checklist" style="text-align: right">
+                <ul class="checklist" style="text-align: center">
+                    Lista de Cosas por hacer en tu pagina:
                     {% for todo in todos %}
                         {{macros.render_todo(todo)}}
                     {% endfor %}
