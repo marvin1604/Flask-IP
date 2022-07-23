@@ -32,10 +32,10 @@
             </div>
                        
             <div class="container">
-                <ul class="checklist" style="text-align: center">
+                <ul class="list-group">
                     Lista de Cosas por hacer en tu pagina:
                     {% for todo in todos %}
-                        {{macros.render_todo(todo)}}
+                        {{macros.render_todo(todo, delete_form)}}
                     {% endfor %}
                 </ul>
                 </Br>
