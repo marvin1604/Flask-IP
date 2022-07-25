@@ -83,12 +83,13 @@ html * {
   }
   p
   { 
-    color:#00DFC0;
+    color:#043f99f3;
+    font-size: 25px;
   }
   
   .listask .btn_update #submit{
     width: 70%;
-    background-color: #dbfc03;
+    background-color: #fc7b03;
   }
   
   .listask .btn_delete #submit{
@@ -96,8 +97,8 @@ html * {
     background-color:#e72705;
     
   }
-  a{
-    font-family: 'Shadows Into Light';
+  q{
+    font-family: 'arial';
     color: black; 
-    font-size: 20px;
+    font-size: 15px;
    }
