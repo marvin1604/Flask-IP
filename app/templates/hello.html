@@ -22,8 +22,8 @@
                 <img style= "max-width: 100%; align-content: center" 
                 src="{{ url_for('static', filename='images/instagram-horizontal.png') }}">
             </div>
-            <h2 class="text-right">Welcome To Instragram 🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
-            <h3 class="text-right">Captura tus fotos, captura el mundo 🌌</h2>
+            <h2 class="text-right">Welcome To Instragram Notes🚀👨‍🚀 :) 💚, tu Ip es {{user_ip}} </h1>
+            <h3 class="text-right">Ordenada tu tareas, alcanza tus objetivos 🌌</h2>
             
             
             <div class="container" style="text-align: left">
@@ -35,7 +35,7 @@
                 <ul class="list-group">
                     Lista de Cosas por hacer en tu pagina:
                     {% for todo in todos %}
-                        {{macros.render_todo(todo, delete_form)}}
+                        {{macros.render_todo(todo, delete_form, update_form)}}
                     {% endfor %}
                 </ul>
                 </Br>
