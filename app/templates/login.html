@@ -6,23 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <!-- {% if username %}
-        <h1>Bienvenido, {{ username | capitalize }}</h1>
-    {% endif %} -->
-    <div class="container" style="text-align: star">
-        <div>
-            <img style= "max-width: 50%; align-content: left" 
-            src="{{ url_for('static', filename='images/instagram.png') }}">
+
+
+    <div class="container signup" >
+        <div class="row">
+            <h2>¡ Que no te quede alguna tarea pendiente !</h2><br>
         </div>
-    </div>
-    <div class="container col-lg-4 col-md-4 col-sm-6">
-        <ul class="checklist"></ul>{{ wtf.quick_form(login_form)}}
-    </div>
-    <div class="container" style="text-align: center">
-        <div>
-            <img style= "max-width: 70%; align-content: right" 
-            src="{{ url_for('static', filename='images/instagram-cel.jpg') }}">
-        </div>
+    
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                <img src="../static/images/sign.png" alt="image" width="500px" height="350px">
+            </div>
+            <div class="col-lg-6 ">   
+            {{ wtf.quick_form(login_form) }} 
+            </div>
+        </div>    
     </div>
         
 {% endblock %}

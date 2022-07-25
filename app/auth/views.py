@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, flash
 from flask_login import login_required, login_user, logout_user
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.forms import LoginForm
 
@@ -12,7 +12,7 @@ from app.models import UserModel, UserData
 def login():
     login_form= LoginForm()
     context = {
-        "login_form" : LoginForm()
+        "login_form" : login_form
     }
     # se encarga de validar la forma enviada, para redireccionar a otra pagina
     if login_form.validate_on_submit():
@@ -23,14 +23,13 @@ def login():
         user_doc = get_user(username)
 
         if user_doc.to_dict() is not None:
-            password_from_db = user_doc.to_dict()["password"]
+            # password_from_db = user_doc.to_dict()["password"]
 
-            if password == password_from_db:
+            if check_password_hash(user_doc.to_dict()['password'], password):
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
-
-                login_user(user)
-
+                print(f'-user: {user}')
+                status=login_user(user)
                 flash("Bienvenido de nuevo")
                 
                 redirect(url_for("hello"))
@@ -59,7 +58,6 @@ def signup():
             password_hash = generate_password_hash(password)
             user_data = UserData(username, password_hash)
             user_put(user_data)
-
             user = UserModel(user_data)
             login_user(user)
             flash("Bienvenido!")
@@ -76,5 +74,4 @@ def signup():
 def logout():
     logout_user()
     flash("Regresa pronto")
-
     return redirect(url_for("auth.login"))

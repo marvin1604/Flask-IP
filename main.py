@@ -48,21 +48,18 @@ def hello():
     update_form = UpdateTodoForm()
         
     context= {
-        "user_ip"    : user_ip,
-        "todos"      : get_todos(user_id=username),
-        "username"   : username,
-        "todo_form"  : todo_form,
-        "delete_form": delete_form,
+        "user_ip"     : user_ip,
+        "todos"       : get_todos(user_id=username),
+        "username"    : username,
+        "todo_form"   : todo_form,
+        "delete_form" : delete_form,
         "update_form" : update_form
     }
 
     if todo_form.validate_on_submit():
         put_todo(user_id = username, description = todo_form.description.data)
-
         flash("Tu tarea se creo con exito")
-        return redirect(url_for("hello"))
-    
-     
+        return redirect(url_for("hello"))         
     return render_template("hello.html", **context)
 
 @app.route("/todos/delete/<todo_id>", methods=["POST"])
