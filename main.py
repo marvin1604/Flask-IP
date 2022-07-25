@@ -1,15 +1,26 @@
-from ensurepip import bootstrap
-from flask import Flask
 from flask import request
 from flask import make_response
 from flask import redirect
 from flask import render_template
-from flask_bootstrap import Bootstrap
+from flask import session, url_for,flash
+from flask_login import login_required, current_user
 
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
+import unittest
 
-todos = ["Comprar cafe", "enviar solicitud de compra", "entregar producto"]
+from app import create_app
+from app.forms import DeleteTodoForm, LoginForm, TodoForm, DeleteTodoForm, UpdateTodoForm;UpdateTodoForm
+from app.firestore_service import delete_todo, get_todos, put_todo, delete_todo, update_todo
+
+app = create_app()
+
+# todos = ["Completar curso de Ingles", "Completar curso de Flask", "Completar curso de Habilidades Blandas "]
+
+
+@app.cli.command()
+def test():
+    test = unittest.TestLoader().discover("tests")
+    unittest.TextTestRunner().run(test)
+
 
 @app.errorhandler(404)
 def not_found(error):
@@ -23,16 +34,42 @@ def internal_error(error):
 def index():
     user_ip = request.remote_addr
     response = make_response(redirect("/hello"))
-    response.set_cookie("user_ip", user_ip)
+    session["user_ip"] = user_ip
+
     return response
 
-@app.route("/hello")
+@app.route("/hello", methods= ["GET", "POST"])
+@login_required
 def hello():
-    user_ip = request.cookies.get("user_ip")
-    
+    user_ip     = session.get("user_ip")
+    username    = current_user.id
+    todo_form   = TodoForm()
+    delete_form = DeleteTodoForm()
+    update_form = UpdateTodoForm()
+        
     context= {
-        "user_ip" : user_ip,
-        "todos"   : todos
+        "user_ip"     : user_ip,
+        "todos"       : get_todos(user_id=username),
+        "username"    : username,
+        "todo_form"   : todo_form,
+        "delete_form" : delete_form,
+        "update_form" : update_form
     }
+
+    if todo_form.validate_on_submit():
+        put_todo(user_id = username, description = todo_form.description.data)
+        flash("Tu tarea se creo con exito")
+        return redirect(url_for("hello"))         
     return render_template("hello.html", **context)
 
+@app.route("/todos/delete/<todo_id>", methods=["POST"])
+def delete(todo_id):
+    user_id = current_user.id
+    delete_todo(user_id=user_id, todo_id=todo_id)
+    return redirect(url_for("hello"))
+
+@app.route("/todos/update/<todo_id>/<int:done>", methods=["POST"])
+def update(todo_id, done):
+    user_id = current_user.id
+    update_todo(user_id = user_id, todo_id = todo_id, done = done)
+    return redirect(url_for("hello"))
